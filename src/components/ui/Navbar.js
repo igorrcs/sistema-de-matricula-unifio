@@ -22,30 +22,34 @@ export default function Navbar() {
           </Link>
           
           <div className="flex space-x-4 items-center">
-            <Link 
-              href="/dashboard" 
-              className={`px-3 py-2 rounded hover:bg-blue-700 ${
-                pathname === '/dashboard' ? 'bg-blue-800' : ''
-              }`}
-            >
-              Dashboard
-            </Link>
-            <Link 
-              href="/documents" 
-              className={`px-3 py-2 rounded hover:bg-blue-700 ${
-                pathname === '/documents' ? 'bg-blue-800' : ''
-              }`}
-            >
-              Documentos
-            </Link>
-            <Link 
-              href="/status" 
-              className={`px-3 py-2 rounded hover:bg-blue-700 ${
-                pathname === '/status' ? 'bg-blue-800' : ''
-              }`}
-            >
-              Status
-            </Link>
+            {user && (
+              <>
+                <Link 
+                  href="/register" 
+                  className={`px-3 py-2 rounded hover:bg-blue-700 ${
+                    pathname === '/dashboard' ? 'bg-blue-800' : ''
+                  }`}
+                >
+                  Dashboard
+                </Link>
+                <Link 
+                  href="/documents" 
+                  className={`px-3 py-2 rounded hover:bg-blue-700 ${
+                    pathname === '/documents' ? 'bg-blue-800' : ''
+                  }`}
+                >
+                  Documentos
+                </Link>
+                <Link 
+                  href="/status" 
+                  className={`px-3 py-2 rounded hover:bg-blue-700 ${
+                    pathname === '/status' ? 'bg-blue-800' : ''
+                  }`}
+                >
+                  Status
+                </Link>
+              </>
+            )}
             
             {user ? (
               <button 

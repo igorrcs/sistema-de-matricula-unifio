@@ -1,13 +1,14 @@
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Navbar from '@/components/ui/Navbar'
+import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 import AuthProvider from '@/components/auth/AuthProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Sistema de Matrícula',
-  description: 'Sistema de gerenciamento de matrículas',
+  description: 'Sistema profissional de gerenciamento de matrículas',
 }
 
 export default function RootLayout({ children }) {
@@ -15,10 +16,13 @@ export default function RootLayout({ children }) {
     <html lang="pt-BR">
       <body className={inter.className}>
         <AuthProvider>
-          <Navbar />
-          <main className="container mx-auto p-4">
-            {children}
-          </main>
+          <div className="min-h-screen flex flex-col">
+            <Header />
+            <main className="flex-grow container mx-auto px-4 py-8">
+              {children}
+            </main>
+            <Footer />
+          </div>
         </AuthProvider>
       </body>
     </html>

@@ -10,11 +10,13 @@ export default function RegisterPage() {
   const router = useRouter()
 
   const handleRegisterSuccess = (userData) => {
-    // Fazer login automaticamente após o cadastro
-    if (login(userData)) {
-      // Redirecionar para o dashboard
-      router.push('/dashboard')
-    }
+    // Usar setTimeout para evitar o erro de renderização
+    setTimeout(() => {
+      if (login(userData)) {
+        // Redirecionar para o dashboard apenas após o login ser processado
+        router.push('/dashboard')
+      }
+    }, 0)
   }
 
   return (

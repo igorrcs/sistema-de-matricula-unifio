@@ -7,10 +7,9 @@ export const useAuth = () => useContext(AuthContext)
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Simular verificação de autenticação
+    // Verificar se há um usuário salvo no localStorage
     const checkAuth = () => {
       try {
         const userData = localStorage.getItem('user')
@@ -19,8 +18,6 @@ export default function AuthProvider({ children }) {
         }
       } catch (error) {
         console.error('Erro ao carregar dados do usuário:', error)
-      } finally {
-        setLoading(false)
       }
     }
 
@@ -56,7 +53,7 @@ export default function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   )
 }
