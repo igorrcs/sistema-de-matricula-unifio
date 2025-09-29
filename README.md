@@ -2,7 +2,7 @@ PROJETO INTEGRADOR VIII - 8º Termo.
 
 SISTEMA DE MATRICULA 
 
-Projeto academico com intuito de se desenvolver uma ferramenta que poderá trazer trazer bons benefecios na instituição de ensino 
+Projeto academico com intuito de desenvolver uma ferramenta que poderá trazer trazer bons benefecios na instituição de ensino 
 relacionado ao processo de realizar matricula entres outras funcionalidades.
 
 Link de acesso a documentação inicial do projeto.
