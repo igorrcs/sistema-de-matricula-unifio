@@ -8,3 +8,5 @@ relacionado ao processo de realizar matricula entres outras funcionalidades.
 Link de acesso a documentação inicial do projeto.
 [PROJETO INTEGRADOR VIII.docx](https://github.com/user-attachments/files/22607136/PROJETO.INTEGRADOR.VIII.docx)
 
+Link de acesso planajamento.
+[Planejamento Inicial.docx](https://github.com/user-attachments/files/22787225/Planejamento.Inicial.docx)
