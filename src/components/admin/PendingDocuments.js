@@ -1,10 +1,10 @@
 export default function PendingDocuments({ documents }) {
   return (
     <div className="bg-white rounded-lg shadow p-6">
-      <h2 className="text-xl font-semibold mb-4">Documentos Pendentes</h2>
+      <h2 className="text-xl font-semibold mb-4 text-black">Documentos Pendentes</h2>
       
       {documents.length === 0 ? (
-        <p className="text-gray-500 text-center py-4">Nenhum documento pendente.</p>
+        <p className="text-gray-500 text-center py-4 text black">Nenhum documento pendente.</p>
       ) : (
         <div className="space-y-4">
           {documents.map((doc) => (

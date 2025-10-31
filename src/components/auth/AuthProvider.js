@@ -3,14 +3,21 @@ import { createContext, useContext, useState, useEffect } from 'react'
 
 const AuthContext = createContext({})
 
-export const useAuth = () => useContext(AuthContext)
+export const useAuth = () => {
+  const context = useContext(AuthContext)
+  if (!context) {
+    throw new Error('useAuth deve ser usado dentro de um AuthProvider')
+  }
+  return context
+}
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Verificar se há um usuário salvo no localStorage
-    const checkAuth = () => {
+    // Verificar se há um usuário salvo no localStorage apenas no cliente
+    if (typeof window !== 'undefined') {
       try {
         const userData = localStorage.getItem('user')
         if (userData) {
@@ -18,16 +25,25 @@ export default function AuthProvider({ children }) {
         }
       } catch (error) {
         console.error('Erro ao carregar dados do usuário:', error)
+      } finally {
+        setIsLoading(false)
       }
+    } else {
+      setIsLoading(false)
     }
-
-    checkAuth()
   }, [])
 
   const login = (userData) => {
     try {
-      setUser(userData)
-      localStorage.setItem('user', JSON.stringify(userData))
+      // Garantir que o usuário tenha uma role
+      const userWithRole = {
+        ...userData,
+        role: userData.role || 'student' // Default para student se não tiver role
+      }
+      setUser(userWithRole)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('user', JSON.stringify(userWithRole))
+      }
       return true
     } catch (error) {
       console.error('Erro ao fazer login:', error)
@@ -38,7 +54,9 @@ export default function AuthProvider({ children }) {
   const logout = () => {
     try {
       setUser(null)
-      localStorage.removeItem('user')
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('user')
+      }
     } catch (error) {
       console.error('Erro ao fazer logout:', error)
     }
@@ -48,6 +66,7 @@ export default function AuthProvider({ children }) {
     user,
     login,
     logout,
+    isLoading,
     isAuthenticated: !!user
   }
 

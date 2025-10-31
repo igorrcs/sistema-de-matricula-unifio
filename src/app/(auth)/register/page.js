@@ -14,7 +14,7 @@ export default function RegisterPage() {
     setTimeout(() => {
       if (login(userData)) {
         // Redirecionar para o dashboard apenas após o login ser processado
-        router.push('/dashboard')
+       
       }
     }, 0)
   }

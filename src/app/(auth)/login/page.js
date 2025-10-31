@@ -1,8 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { useAuth } from '@/components/auth/AuthProvider'
-import Button from '@/components/ui/Button'
-import LoadingSpinner from '@/components/ui/LoadingSpinner'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 
 export default function LoginPage() {
@@ -11,6 +10,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const { login } = useAuth()
+  const router = useRouter()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -18,17 +18,32 @@ export default function LoginPage() {
     setError('')
 
     try {
-      // Simular autenticação
+      // Login de usuário comum
       if (email && password) {
-        const userData = {
-          id: 1,
-          fullName: 'Usuário de Teste',
-          email: email,
-          role: 'student'
+        let userData
+        
+        // Login admin (para testes)
+        if (email === 'admin@escola.com' && password === 'admin123') {
+          userData = {
+            id: 1,
+            fullName: 'Administrador do Sistema',
+            email: email,
+            role: 'admin'
+          }
+        } else {
+          // Login de usuário normal
+          userData = {
+            id: Date.now(),
+            fullName: 'Usuário de Teste',
+            email: email,
+            role: 'student'
+          }
         }
 
         if (login(userData)) {
-          window.location.href = '/dashboard'
+          // Redirecionar baseado na role
+          const redirectPath = userData.role === 'admin' ? '/admin/dashboard' : '/dashboard'
+          window.location.href = redirectPath
         } else {
           setError('Erro ao fazer login. Tente novamente.')
         }
@@ -39,6 +54,17 @@ export default function LoginPage() {
       setError('Erro ao fazer login. Tente novamente.')
     } finally {
       setIsLoading(false)
+    }
+  }
+
+  // Demo buttons para facilitar testes
+  const demoLogin = (type) => {
+    if (type === 'admin') {
+      setEmail('admin@escola.com')
+      setPassword('admin123')
+    } else {
+      setEmail('aluno@escola.com')
+      setPassword('aluno123')
     }
   }
 
@@ -61,12 +87,30 @@ export default function LoginPage() {
             </Link>
           </p>
         </div>
+
+        {/* Botões de demo para teste */}
+        <div className="flex space-x-2">
+          <button
+            onClick={() => demoLogin('student')}
+            className="flex-1 bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700 text-sm"
+          >
+            Aluno
+          </button>
+          <button
+            onClick={() => demoLogin('admin')}
+            className="flex-1 bg-purple-600 text-white py-2 px-4 rounded hover:bg-purple-700 text-sm"
+          >
+            Admin
+          </button>
+        </div>
+
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded">
               {error}
             </div>
           )}
+          
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email" className="sr-only">
@@ -102,43 +146,14 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember-me"
-                name="remember-me"
-                type="checkbox"
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
-                Lembrar-me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a href="#" className="font-medium text-blue-600 hover:text-blue-500">
-                Esqueceu sua senha?
-              </a>
-            </div>
-          </div>
-
           <div>
-            <Button
+            <button
               type="submit"
-              variant="primary"
-              size="large"
               disabled={isLoading}
-              className="w-full justify-center"
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-blue-400"
             >
-              {isLoading ? (
-                <>
-                  <LoadingSpinner size="small" className="mr-2" />
-                  Entrando...
-                </>
-              ) : (
-                'Entrar'
-              )}
-            </Button>
+              {isLoading ? 'Entrando...' : 'Entrar'}
+            </button>
           </div>
         </form>
       </div>

@@ -21,9 +21,9 @@ export default function StatusPage() {
       
       <div className="bg-white rounded-lg shadow p-6 mb-6">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">Status da Matrícula</h2>
+          <h2 className="text-xl font-semibold text-black">Status da Matrícula</h2>
           <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-            statusData.currentStatus === 'Aprovado' ? 'bg-green-100 text-green-800' :
+            statusData.currentStatus === 'Aprovado' ? 'bg-green-100 text-green-800 ' :
             statusData.currentStatus === 'Recusado' ? 'bg-red-100 text-red-800' :
             statusData.currentStatus === 'Em Análise' ? 'bg-blue-100 text-blue-800' :
             statusData.currentStatus === 'Documentos Pendentes' ? 'bg-yellow-100 text-yellow-800' :
@@ -54,8 +54,8 @@ export default function StatusPage() {
         <StatusTimeline events={statusData.history} />
       </div>
 
-      <div className="bg-white rounded-lg shadow p-6">
-        <h2 className="text-xl font-semibold mb-4">Documentos Enviados</h2>
+      <div className="bg-white rounded-lg shadow p-6 text-black">
+        <h2 className="text-xl font-semibold mb-4 text-black">Documentos Enviados</h2>
         <div className="overflow-x-auto">
           <table className="min-w-full">
             <thead>

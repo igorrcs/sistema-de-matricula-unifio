@@ -16,9 +16,9 @@ export default function RootLayout({ children }) {
     <html lang="pt-BR">
       <body className={inter.className}>
         <AuthProvider>
-          <div className="min-h-screen flex flex-col">
+          <div className="min-h-screen flex flex-col bg-gray-50 text-black">
             <Header />
-            <main className="flex-grow container mx-auto px-4 py-8">
+            <main className="flex-grow">
               {children}
             </main>
             <Footer />
